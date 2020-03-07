@@ -11,9 +11,13 @@ import java.util.*;
 
 public class CricketLeagueAnalyser {
     List<IplMostRunsCSV> mostRunsCSVList;
+    Map<SortField,Comparator<IplMostRunsCSV>> fieldComparatorMap;
 
     public CricketLeagueAnalyser() {
         mostRunsCSVList=new ArrayList<>();
+        fieldComparatorMap=new HashMap<>();
+        this.fieldComparatorMap.put(SortField.AVERAGE,Comparator.comparing(census-> census.average));
+        this.fieldComparatorMap.put(SortField.STRIKE_RATE,Comparator.comparing(census->census.strikeRate));
     }
 
     public int loadIplData(String csvFilePath) {
@@ -37,25 +41,12 @@ public class CricketLeagueAnalyser {
 
     }
 
-    public String getTopBattingAverage() {
+    public String getSortedData(SortField sortField) {
         if (mostRunsCSVList==null || mostRunsCSVList.size()==0)
         {
-            throw new CricketLeagueExceptions("No Records",CricketLeagueExceptions.ExceptionType.NO_CENSUS_DATA);
+            throw new CricketLeagueExceptions("No Records",CricketLeagueExceptions.ExceptionType.NO_RECORDS_FOUND);
         }
-        Comparator<IplMostRunsCSV> mostRunsCSVComparator=Comparator.comparing(census-> census.average);
-        sort(mostRunsCSVComparator);
-        Collections.reverse(mostRunsCSVList);
-        String sortedAverage=new Gson().toJson(mostRunsCSVList);
-        return sortedAverage;
-    }
-
-    public String getTopStrikeRate() {
-        if (mostRunsCSVList==null || mostRunsCSVList.size()==0)
-        {
-            throw new CricketLeagueExceptions("No Records",CricketLeagueExceptions.ExceptionType.NO_CENSUS_DATA);
-        }
-        Comparator<IplMostRunsCSV> mostRunsCSVComparator=Comparator.comparing(census-> census.strikeRate);
-        sort(mostRunsCSVComparator);
+        sort(this.fieldComparatorMap.get(sortField));
         Collections.reverse(mostRunsCSVList);
         String sortedAverage=new Gson().toJson(mostRunsCSVList);
         return sortedAverage;

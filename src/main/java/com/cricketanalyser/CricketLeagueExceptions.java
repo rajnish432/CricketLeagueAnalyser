@@ -4,7 +4,7 @@ public class CricketLeagueExceptions extends RuntimeException {
 
     enum ExceptionType
     {
-        NO_CENSUS_DATA,CSV_FILE_PROBLEM;
+        NO_RECORDS_FOUND,CSV_FILE_PROBLEM;
     }
     ExceptionType eType;
 
