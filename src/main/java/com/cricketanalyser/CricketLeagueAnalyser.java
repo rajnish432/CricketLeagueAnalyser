@@ -49,6 +49,18 @@ public class CricketLeagueAnalyser {
         return sortedAverage;
     }
 
+    public String getTopStrikeRate() {
+        if (mostRunsCSVList==null || mostRunsCSVList.size()==0)
+        {
+            throw new CricketLeagueExceptions("No Records",CricketLeagueExceptions.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IplMostRunsCSV> mostRunsCSVComparator=Comparator.comparing(census-> census.strikeRate);
+        sort(mostRunsCSVComparator);
+        Collections.reverse(mostRunsCSVList);
+        String sortedAverage=new Gson().toJson(mostRunsCSVList);
+        return sortedAverage;
+    }
+
     private void sort(Comparator<IplMostRunsCSV> mostRunsCSVComparator) {
         for (int i = 0; i< this.mostRunsCSVList.size()-1; i++)
         {
