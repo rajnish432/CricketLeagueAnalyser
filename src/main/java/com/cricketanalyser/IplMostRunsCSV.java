@@ -13,4 +13,6 @@ public class IplMostRunsCSV {
     public int sixes;
     @CsvBindByName(column = "Runs",required = true)
     public int runs;
+    @CsvBindByName(column = "PLAYER",required = true)
+    public String playerName;
 }
