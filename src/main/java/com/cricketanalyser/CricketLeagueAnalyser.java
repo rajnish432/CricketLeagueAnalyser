@@ -19,6 +19,7 @@ public class CricketLeagueAnalyser {
         this.fieldComparatorMap.put(SortField.AVERAGE,Comparator.comparing(census-> census.average));
         this.fieldComparatorMap.put(SortField.STRIKE_RATE,Comparator.comparing(census->census.strikeRate));
         this.fieldComparatorMap.put(SortField.MAXIMUM_BOUNDARIES,Comparator.comparing(ipldata-> ipldata.sixes+ipldata.fours));
+        this.fieldComparatorMap.put(SortField.MAX_RUNS,Comparator.comparing(ipldata-> ipldata.runs));
     }
 
     public int loadIplData(String csvFilePath) {

@@ -51,4 +51,12 @@ public class CricketLeagueAnalyserTest {
         IplMostRunsCSV[] iplMostRunsCSVS=new Gson().fromJson(maxAverageWithStrikes,IplMostRunsCSV[].class);
         Assert.assertEquals(134.62,iplMostRunsCSVS[0].strikeRate,0.0);
     }
+
+    @Test
+    public void givenMostRunsData_WhenSorted_ReturnsTopHitsWithAverage() {
+        cricketLeagueAnalyser.loadIplData(IPL_MOST_RUNS_CSV_PATH);
+        String maxHitWithAverage=cricketLeagueAnalyser.getSortedData(SortField.MAX_RUNS);
+        IplMostRunsCSV[] iplMostRunsCSVS=new Gson().fromJson(maxHitWithAverage,IplMostRunsCSV[].class);
+        Assert.assertEquals(69.2,iplMostRunsCSVS[0].average,0.0f);
+    }
 }
