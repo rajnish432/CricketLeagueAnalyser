@@ -2,6 +2,7 @@ package com.cricketanalyser;
 
 import com.google.gson.Gson;
 import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
@@ -17,10 +18,16 @@ public class CricketLeagueAnalyser {
         iplDTOList=new ArrayList<>();
         fieldComparatorMap=new HashMap<>();
         iplDTOMap=new HashMap<>();
-        this.fieldComparatorMap.put(SortField.AVERAGE,Comparator.comparing(census-> census.average));
-        this.fieldComparatorMap.put(SortField.STRIKE_RATE,Comparator.comparing(census->census.strikeRate));
+        this.fieldComparatorMap.put(SortField.AVERAGE,Comparator.comparing(ipldata-> ipldata.average));
+        Comparator<IplDTO> averagecomp=Comparator.comparing(ipldata-> ipldata.average);
+        this.fieldComparatorMap.put(SortField.AVERAGEWITHSTRIKERATE,averagecomp.thenComparing(ipldata->ipldata.strikeRate));
+        this.fieldComparatorMap.put(SortField.STRIKE_RATE,Comparator.comparing(ipldata->ipldata.strikeRate));
         this.fieldComparatorMap.put(SortField.MAXIMUM_BOUNDARIES,Comparator.comparing(ipldata-> ipldata.sixes+ipldata.fours));
+        this.fieldComparatorMap.put(SortField.MAXIMUM_BOUNDARIES_WITH_STRIKE,new ComparatorBoundaries().thenComparing(ipldata->ipldata.strikeRate));
         this.fieldComparatorMap.put(SortField.MAX_RUNS,Comparator.comparing(ipldata-> ipldata.runs));
+        Comparator<IplDTO> runs=Comparator.comparing(ipldata-> ipldata.runs);
+        this.fieldComparatorMap.put(SortField.RUNS_WITH_AVERAGE,runs.thenComparing(ipldata-> ipldata.average));
+        this.fieldComparatorMap.put(SortField.ECONOMY,Comparator.comparing(ipldata-> ipldata.economy));
     }
 
     public int loadIplData(IplRecords iplRecords,String csvFilePath)

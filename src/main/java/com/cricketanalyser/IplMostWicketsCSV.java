@@ -9,4 +9,6 @@ public class IplMostWicketsCSV {
     public String playerName;
     @CsvBindByName(column ="SR",required = true)
     public double strikeRate;
+    @CsvBindByName(column ="Econ",required = true)
+    public double economy;
 }
