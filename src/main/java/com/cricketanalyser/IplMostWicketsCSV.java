@@ -15,4 +15,6 @@ public class IplMostWicketsCSV {
     public int fiveWickets;
     @CsvBindByName(column ="4w",required = true)
     public int fourWickets;
+    @CsvBindByName(column ="Wkts",required = true)
+    public int wickets;
 }

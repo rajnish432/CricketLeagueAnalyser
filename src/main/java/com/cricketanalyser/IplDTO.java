@@ -10,6 +10,7 @@ public class IplDTO {
     public double economy;
     public int fourWickets;
     public int fiveWickets;
+    public int wickets;
 
     public IplDTO(IplMostRunsCSV iplMostRunsCSV) {
         runs=iplMostRunsCSV.runs;
@@ -27,5 +28,6 @@ public class IplDTO {
         economy=iplMostWicketsCSV.economy;
         fiveWickets=iplMostWicketsCSV.fiveWickets;
         fourWickets=iplMostWicketsCSV.fourWickets;
+        wickets=iplMostWicketsCSV.wickets;
     }
 }

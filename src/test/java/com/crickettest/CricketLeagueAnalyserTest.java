@@ -101,4 +101,12 @@ public class CricketLeagueAnalyserTest {
         IplMostWicketsCSV[] iplMostWicketsCSVS=new Gson().fromJson(maxAverageWithStrikeRate,IplMostWicketsCSV[].class);
         Assert.assertEquals("Krishnappa Gowtham",iplMostWicketsCSVS[0].playerName);
     }
+
+    @Test
+    public void givenMostWicketsData_WhenSorted_ReturnsMaxWicketsWithAverage() {
+        cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.IPL_MOST_WICKETS,IPL_MOST_WICKETS_CSV_PATH);
+        String maxWicketsWithAverage=cricketLeagueAnalyser.getSortedData(SortField.WICKETS_WITH_AVERAGE);
+        IplMostWicketsCSV[] iplMostWicketsCSVS=new Gson().fromJson(maxWicketsWithAverage,IplMostWicketsCSV[].class);
+        Assert.assertEquals("Imran Tahir",iplMostWicketsCSVS[0].playerName);
+    }
 }

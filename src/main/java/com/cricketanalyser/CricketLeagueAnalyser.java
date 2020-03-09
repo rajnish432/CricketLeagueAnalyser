@@ -29,6 +29,8 @@ public class CricketLeagueAnalyser {
         this.fieldComparatorMap.put(SortField.RUNS_WITH_AVERAGE,runs.thenComparing(ipldata-> ipldata.average));
         this.fieldComparatorMap.put(SortField.ECONOMY,Comparator.comparing(ipldata-> ipldata.economy));
         this.fieldComparatorMap.put(SortField.STRIKE_RATE_WITH_WICKETS,new ComparatorWickets().thenComparing(ipldata-> ipldata.strikeRate));
+        Comparator<IplDTO> wickets=Comparator.comparing(ipldata-> ipldata.wickets);
+        this.fieldComparatorMap.put(SortField.WICKETS_WITH_AVERAGE,wickets.thenComparing(ipldata-> ipldata.average));
     }
 
     public int loadIplData(IplRecords iplRecords,String csvFilePath)
