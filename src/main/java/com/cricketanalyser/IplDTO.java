@@ -1,7 +1,6 @@
 package com.cricketanalyser;
 
 public class IplDTO {
-    public int position;
     public String playerName;
     public double average;
     public double strikeRate;

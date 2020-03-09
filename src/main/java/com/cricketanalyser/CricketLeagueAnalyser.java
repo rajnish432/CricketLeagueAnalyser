@@ -1,19 +1,17 @@
 package com.cricketanalyser;
 
-import com.censusjar.CsvBuilderFactory;
-import com.censusjar.ICsvBuilder;
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
     List<IplDTO> iplDTOList;
-    Map<String,IplDTO> iplDTOMap;
+    Map<String,IplDTO> iplDTOMap=null;
     Map<SortField,Comparator<IplDTO>> fieldComparatorMap;
+
+    public enum IplRecords{
+        IPL_MOST_RUNS,IPL_MOST_WICKETS;
+    }
 
     public CricketLeagueAnalyser() {
         iplDTOList=new ArrayList<>();
@@ -25,33 +23,10 @@ public class CricketLeagueAnalyser {
         this.fieldComparatorMap.put(SortField.MAX_RUNS,Comparator.comparing(ipldata-> ipldata.runs));
     }
 
-    public int loadIplData(String csvFilePath) {
-        try(Reader reader= Files.newBufferedReader(Paths.get(csvFilePath))) {
-            ICsvBuilder openCsvBuilder = CsvBuilderFactory.getOpenCsvBuilder();
-            Iterator<IplMostRunsCSV> iteratorload = openCsvBuilder.getCsvFileIterator(reader,IplMostRunsCSV.class);
-            while (iteratorload.hasNext())
-            {
-                IplMostRunsCSV iplMostRunsCSV=iteratorload.next();
-                this.iplDTOMap.put(iplMostRunsCSV.playerName,new IplDTO(iplMostRunsCSV));
-           }
-            return iplDTOList.size();
-        } catch (IOException e) {
-            throw new CricketLeagueExceptions("Wrong File Path",CricketLeagueExceptions.ExceptionType.CSV_FILE_PROBLEM);
-        }
-    }
-    public int loadIplWicketsData(String iplMostWicketsCsvPath) {
-        try(Reader reader= Files.newBufferedReader(Paths.get(iplMostWicketsCsvPath))) {
-            ICsvBuilder openCsvBuilder = CsvBuilderFactory.getOpenCsvBuilder();
-            Iterator<IplMostWicketsCSV> iteratorload = openCsvBuilder.getCsvFileIterator(reader,IplMostWicketsCSV.class);
-            while (iteratorload.hasNext())
-            {
-                IplMostWicketsCSV iplMostWicketsCSV=iteratorload.next();
-                this.iplDTOMap.put(iplMostWicketsCSV.playerName,new IplDTO(iplMostWicketsCSV));
-            }
-            return iplDTOList.size();
-        } catch (IOException e) {
-            throw new CricketLeagueExceptions("Wrong File Path",CricketLeagueExceptions.ExceptionType.CSV_FILE_PROBLEM);
-        }
+    public int loadIplData(IplRecords iplRecords,String csvFilePath)
+    {
+        iplDTOMap=IplAdapterFactory.getCricketData(iplRecords,csvFilePath);
+        return iplDTOMap.size();
     }
 
     public String getSortedData(SortField sortField) {
