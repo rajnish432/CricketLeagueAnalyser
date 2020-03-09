@@ -85,4 +85,12 @@ public class CricketLeagueAnalyserTest {
         IplMostWicketsCSV[] iplMostWicketsCSVS=new Gson().fromJson(maxEcconomy,IplMostWicketsCSV[].class);
         Assert.assertEquals("Ben Cutting",iplMostWicketsCSVS[0].playerName);
     }
+
+    @Test
+    public void givenMostWicketsData_WhenSorted_ReturnsTopStrikeRateWithWickets() {
+        cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.IPL_MOST_WICKETS,IPL_MOST_WICKETS_CSV_PATH);
+        String maxStrikeWithWickets=cricketLeagueAnalyser.getSortedData(SortField.STRIKE_RATE_WITH_WICKETS);
+        IplMostWicketsCSV[] iplMostWicketsCSVS=new Gson().fromJson(maxStrikeWithWickets,IplMostWicketsCSV[].class);
+        Assert.assertEquals("Lasith Malinga",iplMostWicketsCSVS[0].playerName);
+    }
 }

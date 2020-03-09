@@ -11,4 +11,8 @@ public class IplMostWicketsCSV {
     public double strikeRate;
     @CsvBindByName(column ="Econ",required = true)
     public double economy;
+    @CsvBindByName(column ="5w",required = true)
+    public int fiveWickets;
+    @CsvBindByName(column ="4w",required = true)
+    public int fourWickets;
 }
