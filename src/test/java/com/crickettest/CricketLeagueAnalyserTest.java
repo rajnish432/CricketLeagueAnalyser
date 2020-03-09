@@ -69,4 +69,12 @@ public class CricketLeagueAnalyserTest {
         IplMostWicketsCSV[] iplMostWicketsCSVS=new Gson().fromJson(maxAverage,IplMostWicketsCSV[].class);
         Assert.assertEquals(166.0,iplMostWicketsCSVS[0].average,0.0);
     }
+
+    @Test
+    public void givenMostWicketsData_WhenSorted_ReturnsTopBowlingStrikeRate() {
+        cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.IPL_MOST_WICKETS,IPL_MOST_WICKETS_CSV_PATH);
+        String maxStrikeRate=cricketLeagueAnalyser.getSortedData(SortField.STRIKE_RATE);
+        IplMostWicketsCSV[] iplMostWicketsCSVS=new Gson().fromJson(maxStrikeRate,IplMostWicketsCSV[].class);
+        Assert.assertEquals(120.0,iplMostWicketsCSVS[0].strikeRate,0.0);
+    }
 }

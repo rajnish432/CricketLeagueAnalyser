@@ -35,7 +35,7 @@ public class CricketLeagueAnalyser {
         {
             throw new CricketLeagueExceptions("No Records",CricketLeagueExceptions.ExceptionType.NO_RECORDS_FOUND);
         }
-            sort(this.fieldComparatorMap.get(sortField));
+        sort(this.fieldComparatorMap.get(sortField));
         Collections.reverse(iplDTOList);
         String sortedAverage=new Gson().toJson(iplDTOList);
         return sortedAverage;

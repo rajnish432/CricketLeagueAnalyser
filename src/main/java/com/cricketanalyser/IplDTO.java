@@ -20,5 +20,6 @@ public class IplDTO {
     public IplDTO(IplMostWicketsCSV iplMostWicketsCSV) {
         average=iplMostWicketsCSV.average;
         playerName=iplMostWicketsCSV.playerName;
+        strikeRate=iplMostWicketsCSV.strikeRate;
     }
 }
