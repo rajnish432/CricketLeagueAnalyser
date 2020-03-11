@@ -14,7 +14,7 @@ public class CricketLeagueAnalyser {
     }
 
     public enum IplRecords{
-        IPL_MOST_RUNS,IPL_MOST_WICKETS,ALLROUNDER;
+        IPL_MOST_RUNS,IPL_MOST_WICKETS,ALLROUNDER,ALLROUNDER_MAIN;
     }
 
     public CricketLeagueAnalyser() {
@@ -35,7 +35,9 @@ public class CricketLeagueAnalyser {
         Comparator<IplDTO> wickets=Comparator.comparing(ipldata-> ipldata.wickets);
         this.fieldComparatorMap.put(SortField.WICKETS_WITH_AVERAGE,wickets.thenComparing(ipldata-> ipldata.average));
         this.fieldComparatorMap.put(SortField.BEST_BATTING_BOWLING_AVERAGE,new ComparatorAverage());
-    }
+        this.fieldComparatorMap.put(SortField.ALL_ROUNDER,new ComparatorAllRounder());
+        //this.fieldComparatorMap.put(SortField.ALL_ROUNDER,runs.thenComparing(ipldata->ipldata.wickets));
+        }
 
     public int loadIplData(IplRecords iplRecords,String... csvFilePath)
     {

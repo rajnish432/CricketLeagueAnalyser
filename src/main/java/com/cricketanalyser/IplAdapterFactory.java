@@ -1,5 +1,6 @@
 package com.cricketanalyser;
 
+
 import java.util.Map;
 
 public class IplAdapterFactory {
@@ -11,6 +12,8 @@ public class IplAdapterFactory {
             return new IplMostWicketsAdapter().loadIplData(csvFilePath);
         if (iplRecords.equals(CricketLeagueAnalyser.IplRecords.ALLROUNDER))
             return new AllRounder().loadIplData(csvFilePath);
+        if (iplRecords.equals(CricketLeagueAnalyser.IplRecords.ALLROUNDER_MAIN))
+            return new AllRounderMain().loadIplData(csvFilePath);
         else
             throw new CricketLeagueExceptions("No Such Record",CricketLeagueExceptions.ExceptionType.NO_RECORDS_FOUND);
     }
