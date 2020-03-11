@@ -9,6 +9,8 @@ public class IplAdapterFactory {
             return new IplMostRunsAdapter().loadIplData(csvFilePath);
         if (iplRecords.equals(CricketLeagueAnalyser.IplRecords.IPL_MOST_WICKETS))
             return new IplMostWicketsAdapter().loadIplData(csvFilePath);
+        if (iplRecords.equals(CricketLeagueAnalyser.IplRecords.ALLROUNDER))
+            return new AllRounder().loadIplData(csvFilePath);
         else
             throw new CricketLeagueExceptions("No Such Record",CricketLeagueExceptions.ExceptionType.NO_RECORDS_FOUND);
     }

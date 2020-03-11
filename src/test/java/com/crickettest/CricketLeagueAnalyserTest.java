@@ -1,9 +1,6 @@
 package com.crickettest;
 
-import com.cricketanalyser.CricketLeagueAnalyser;
-import com.cricketanalyser.IplMostRunsCSV;
-import com.cricketanalyser.IplMostWicketsCSV;
-import com.cricketanalyser.SortField;
+import com.cricketanalyser.*;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +16,7 @@ public class CricketLeagueAnalyserTest {
         cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.IPL_MOST_RUNS,IPL_MOST_RUNS_CSV_PATH);
         String result=cricketLeagueAnalyser.getSortedData(SortField.AVERAGE);
         IplMostRunsCSV[] iplMostRunsCSVS=new Gson().fromJson(result,IplMostRunsCSV[].class);
-        Assert.assertEquals(83.2,iplMostRunsCSVS[0].average,0.0);
+        Assert.assertEquals("MS Dhoni",iplMostRunsCSVS[0].playerName);
     }
 
     @Test
@@ -109,4 +106,20 @@ public class CricketLeagueAnalyserTest {
         IplMostWicketsCSV[] iplMostWicketsCSVS=new Gson().fromJson(maxWicketsWithAverage,IplMostWicketsCSV[].class);
         Assert.assertEquals("Imran Tahir",iplMostWicketsCSVS[0].playerName);
     }
+
+    @Test
+    public void givenMostWicketsandRunsData_WhenSorted_ReturnsBestBattingAndBowlingAverage() {
+        CricketLeagueAnalyser iplAnalyser = new CricketLeagueAnalyser();
+        iplAnalyser.setIPLAdapter(new IplMostRunsAdapter());
+        try {
+            iplAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.ALLROUNDER, IPL_MOST_RUNS_CSV_PATH, IPL_MOST_WICKETS_CSV_PATH);
+            String sortedData = iplAnalyser.getSortedData(SortField.BEST_BATTING_BOWLING_AVERAGE);
+            System.out.println(sortedData);
+            IplMostRunsCSV[] iplCSVData = new Gson().fromJson(sortedData, IplMostRunsCSV[].class);
+            Assert.assertEquals("Marcus Stoinis", iplCSVData[0].playerName);
+        } catch (CricketLeagueExceptions e) {
+            e.printStackTrace();
+        }
+    }
 }
+

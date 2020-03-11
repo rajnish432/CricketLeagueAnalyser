@@ -2,16 +2,19 @@ package com.cricketanalyser;
 
 import com.google.gson.Gson;
 import java.util.*;
-import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 public class CricketLeagueAnalyser {
     List<IplDTO> iplDTOList;
     Map<String,IplDTO> iplDTOMap=null;
     Map<SortField,Comparator<IplDTO>> fieldComparatorMap;
+    public IplAdapter iplAdapter;
+    public void setIPLAdapter(IplMostRunsAdapter iplMostRunsAdapter) {
+        this.iplAdapter=iplMostRunsAdapter;
+    }
 
     public enum IplRecords{
-        IPL_MOST_RUNS,IPL_MOST_WICKETS;
+        IPL_MOST_RUNS,IPL_MOST_WICKETS,ALLROUNDER;
     }
 
     public CricketLeagueAnalyser() {
@@ -31,9 +34,10 @@ public class CricketLeagueAnalyser {
         this.fieldComparatorMap.put(SortField.STRIKE_RATE_WITH_WICKETS,new ComparatorWickets().thenComparing(ipldata-> ipldata.strikeRate));
         Comparator<IplDTO> wickets=Comparator.comparing(ipldata-> ipldata.wickets);
         this.fieldComparatorMap.put(SortField.WICKETS_WITH_AVERAGE,wickets.thenComparing(ipldata-> ipldata.average));
+        this.fieldComparatorMap.put(SortField.BEST_BATTING_BOWLING_AVERAGE,new ComparatorAverage());
     }
 
-    public int loadIplData(IplRecords iplRecords,String csvFilePath)
+    public int loadIplData(IplRecords iplRecords,String... csvFilePath)
     {
         iplDTOMap=IplAdapterFactory.getCricketData(iplRecords,csvFilePath);
         return iplDTOMap.size();

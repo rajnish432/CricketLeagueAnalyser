@@ -11,9 +11,12 @@ public class IplDTO {
     public int fourWickets;
     public int fiveWickets;
     public int wickets;
+    public double bowlerAverage;
+    public double battingAverage;
 
     public IplDTO(IplMostRunsCSV iplMostRunsCSV) {
         runs=iplMostRunsCSV.runs;
+        battingAverage=iplMostRunsCSV.average;
         sixes=iplMostRunsCSV.sixes;
         fours=iplMostRunsCSV.fours;
         strikeRate=iplMostRunsCSV.strikeRate;
@@ -29,5 +32,6 @@ public class IplDTO {
         fiveWickets=iplMostWicketsCSV.fiveWickets;
         fourWickets=iplMostWicketsCSV.fourWickets;
         wickets=iplMostWicketsCSV.wickets;
+        bowlerAverage=iplMostWicketsCSV.average;
     }
 }
