@@ -110,10 +110,10 @@ public class CricketLeagueAnalyserTest {
     @Test
     public void givenMostWicketsandRunsData_WhenSorted_ReturnsBestBattingAndBowlingAverage() {
         try {
-            cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.ALLROUNDER, IPL_MOST_RUNS_CSV_PATH, IPL_MOST_WICKETS_CSV_PATH);
+            cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.IPL_MOST_RUNS, IPL_MOST_RUNS_CSV_PATH, IPL_MOST_WICKETS_CSV_PATH);
             String sortedData =  cricketLeagueAnalyser.getSortedData(SortField.BEST_BATTING_BOWLING_AVERAGE);
             IplDTO[] iplCSVData = new Gson().fromJson(sortedData, IplDTO[].class);
-            Assert.assertEquals("Marcus Stoinis", iplCSVData[0].playerName);
+            Assert.assertEquals("Krishnappa Gowtham", iplCSVData[0].playerName);
         } catch (CricketLeagueExceptions e) {
             e.printStackTrace();
         }
@@ -121,7 +121,7 @@ public class CricketLeagueAnalyserTest {
 
     @Test
     public void givenMostWicketsandRunsData_WhenSorted_ReturnsAllRounder() {
-        cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.ALLROUNDER_MAIN,IPL_MOST_RUNS_CSV_PATH,IPL_MOST_WICKETS_CSV_PATH);
+        cricketLeagueAnalyser.loadIplData(CricketLeagueAnalyser.IplRecords.IPL_MOST_RUNS,IPL_MOST_RUNS_CSV_PATH,IPL_MOST_WICKETS_CSV_PATH);
         String allRounder=cricketLeagueAnalyser.getSortedData(SortField.ALL_ROUNDER);
         IplDTO[] iplDTOS=new Gson().fromJson(allRounder,IplDTO[].class);
         Assert.assertEquals("Hardik Pandya",iplDTOS[0].playerName);

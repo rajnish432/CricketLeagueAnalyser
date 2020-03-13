@@ -9,12 +9,13 @@ public class CricketLeagueAnalyser {
     Map<String,IplDTO> iplDTOMap=null;
     Map<SortField,Comparator<IplDTO>> fieldComparatorMap;
     public IplAdapter iplAdapter;
+
     public void setIPLAdapter(IplMostRunsAdapter iplMostRunsAdapter) {
         this.iplAdapter=iplMostRunsAdapter;
     }
 
     public enum IplRecords{
-        IPL_MOST_RUNS,IPL_MOST_WICKETS,ALLROUNDER,ALLROUNDER_MAIN;
+        IPL_MOST_RUNS,IPL_MOST_WICKETS;
     }
 
     public CricketLeagueAnalyser() {
